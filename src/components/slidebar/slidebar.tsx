@@ -1,4 +1,4 @@
-import * as React from 'React';
+import * as React from 'react';
 import './slidebar.scss';
 
 export class SlideBar extends React.Component<any> {
