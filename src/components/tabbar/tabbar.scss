@@ -1,0 +1,19 @@
+.tab-bar {
+    height: 100%;
+    // border: 1px solid green;
+    padding: 0 5px;
+    float: right;
+    li {
+        height: 76px;
+        line-height: 76px;
+        width: 76px;
+        display: block;
+        background: #3B5998;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+    li:hover {
+        background: #fff;
+    }
+}
