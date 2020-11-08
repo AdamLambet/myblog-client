@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "12"
+install:
+  - npm install
+script:
+  - node -v
+  - npm run build
+notifications:
+  email:
+    recipients:
+    - nefu_yanglin@163.com
+    on_success: always
+    on_failure: always
