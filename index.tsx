@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App } from './App';
-import { Frame } from './src/fameWork/frame';
+import { Frame } from './src/frameWork/frame';
 
 class Myblog {
     aFrame: Frame;

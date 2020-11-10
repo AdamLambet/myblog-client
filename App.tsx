@@ -1,4 +1,4 @@
-import { LayoutManager } from './src/fameWork/layout';
+import { LayoutManager } from './src/frameWork/layout';
 import * as React from 'react';
 import 'antd/dist/antd.css'; 
 
