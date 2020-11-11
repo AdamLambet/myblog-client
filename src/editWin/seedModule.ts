@@ -1,11 +1,22 @@
+import { PageSizeConfig } from "./config/page.config";
+import { SeedEditorView } from "./view/editorview";
+
 export class seedEditor {
+    // config
+    outlineConfig: PageSizeConfig
+
     // dom elment
     editorDiv: HTMLDivElement;
+    selectorId: string;
 
-    // toolbar config
-    constructor(selector: string) {
+    // view
+    sEditorView: SeedEditorView;
+
+    // toolbar
+    constructor(selector: string, outlineConfig: PageSizeConfig = {}) {
         this.checkBrowserEnv()
-        this.init(selector);
+        this.selectorId = selector;
+        this.outlineConfig = outlineConfig;
     }
 
     /**
@@ -17,19 +28,19 @@ export class seedEditor {
      * 初始化dom和配置
      * @param selector 根结点选择器id
      */
-    init (selector: string) {
-        this.domInit(selector);
-        this.pageSizeInit();
+    init () {
+        this.domInit();
         this.toolBarInit();
     }
 
-    domInit(selector: string) {
-        const containerNode: HTMLElement = document.getElementById(selector);
+    domInit() {
+        const containerNode: HTMLElement = document.getElementById(this.selectorId);
         this.editorDiv = document.createElement('div');
         containerNode.appendChild(this.editorDiv);
+
+        this.sEditorView = new SeedEditorView(this.editorDiv, this.outlineConfig);
     }
 
-    pageSizeInit() {}
 
     toolBarInit() {}
 }

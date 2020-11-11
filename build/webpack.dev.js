@@ -14,5 +14,6 @@ const commonConfig = require('./webpack.config');
          port: 8888,
          open: true,
          hot: true
-     }
+     },
+     devtool: 'source-map'
  })

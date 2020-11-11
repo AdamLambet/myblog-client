@@ -9,6 +9,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = merge(commonConfig, {
     mode: 'production',
     plugins: [
-        new HtmlWebpackPlugin({template: path.resolve(__dirname, '../index.html') })
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: path.resolve(__dirname, '../index.html'),
+            chunks: ['blogbundle']
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'edit.html',
+            template: path.resolve(__dirname, '../src/editWin/editIndex.html'),
+            chunks: ['editor']
+        })
     ]
 })

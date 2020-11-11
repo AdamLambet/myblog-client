@@ -1,10 +1,13 @@
 const path = require('path');
 
 module.exports = {
-    entry: path.resolve(__dirname, '../index.tsx'),
+    entry: {
+        blogbundle: path.resolve(__dirname, '../index.tsx'),
+        editor: path.resolve(__dirname, '../src/editWin/editorIndex.ts')
+    },
     output: {
         path: path.resolve(__dirname, '../dist'), // 输出位置当前目录
-        filename: 'mybundle.js'
+        filename: '[name].js'
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"] // 在执行import引入时，先通过ts后缀尝试，再通过js后缀尝试
