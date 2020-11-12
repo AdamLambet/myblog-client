@@ -1,22 +1,32 @@
-import { PageSizeConfig } from "./config/page.config";
+import { DefaultContainerConfig, EditorContainerConfig, PageSizeConfig, ToolBarConfig } from "./config/page.config";
 import { SeedEditorView } from "./view/editorview";
+import { ToolBar } from "./toolbar/toolbar";
 
 export class seedEditor {
     // config
-    outlineConfig: PageSizeConfig
+    containerConfig: EditorContainerConfig;
+    pageConfig: PageSizeConfig;
+    toolbarConfig: ToolBarConfig;
 
     // dom elment
-    editorDiv: HTMLDivElement;
+    rootNode: HTMLElement;
+    editorContainer: HTMLDivElement;
     selectorId: string;
+    toolBarDiv: HTMLDivElement;
+    editorDiv: HTMLDivElement;
 
     // view
     sEditorView: SeedEditorView;
+    sToolBarView: ToolBar;
 
-    // toolbar
-    constructor(selector: string, outlineConfig: PageSizeConfig = {}) {
+    constructor(selector: string, containerConfig: EditorContainerConfig = {},  toolbarConfig: ToolBarConfig = {}, pageConfig: PageSizeConfig = {}) {
         this.checkBrowserEnv()
+
         this.selectorId = selector;
-        this.outlineConfig = outlineConfig;
+
+        this.containerConfig = Object.assign(DefaultContainerConfig, containerConfig);
+        this.toolbarConfig = toolbarConfig;
+        this.pageConfig = pageConfig;
     }
 
     /**
@@ -31,16 +41,28 @@ export class seedEditor {
     init () {
         this.domInit();
         this.toolBarInit();
+        this.editPage();
     }
 
     domInit() {
-        const containerNode: HTMLElement = document.getElementById(this.selectorId);
-        this.editorDiv = document.createElement('div');
-        containerNode.appendChild(this.editorDiv);
-
-        this.sEditorView = new SeedEditorView(this.editorDiv, this.outlineConfig);
+        this.rootNode = document.getElementById(this.selectorId);
+        this.editorContainer = document.createElement('div');
+        this.rootNode.appendChild(this.editorContainer);
+        this.editorContainer.style.boxShadow = '0 8px 40px rgba(0, 0, 0, 0.15)';
+        this.editorContainer.style.border = '1px solid #c9d8db';
+        this.editorContainer.style.margin = '0 auto';
+        this.editorContainer.style.width = `${this.containerConfig.width}px`;
     }
 
+    toolBarInit() {
+        this.toolBarDiv = document.createElement('div');
+        this.editorContainer.appendChild(this.toolBarDiv);
+        this.sToolBarView = new ToolBar(this.toolBarDiv, this.toolbarConfig);
+    }
 
-    toolBarInit() {}
+    editPage() {
+        this.editorDiv = document.createElement('div');
+        this.editorContainer.appendChild(this.editorDiv);
+        this.sEditorView = new SeedEditorView(this.editorDiv, this.pageConfig);
+    }
 }
