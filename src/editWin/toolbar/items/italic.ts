@@ -1,9 +1,9 @@
 import { ToolBarItem } from "./type";
 
 export class Italic implements ToolBarItem {
-    iconName: 'italic.svg';
+    className: string =  'italic';
 
-    getIconName(): string {
-        return this.iconName;
+    getclassName(): string {
+        return this.className;
     }
 }

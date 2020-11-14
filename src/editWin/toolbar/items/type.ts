@@ -1,5 +1,9 @@
+
 export interface ToolBarItem {
-    iconName: string;
+    className: string;
     
-    getIconName(): string;
+    getclassName(): string;
+
 }
+
+export const tItemsConfig = ['fontsize', 'bold', 'italic', 'underline', 'strikethrough'];

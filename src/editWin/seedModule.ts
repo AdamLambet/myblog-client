@@ -2,6 +2,8 @@ import { DefaultContainerConfig, EditorContainerConfig, PageSizeConfig, ToolBarC
 import { SeedEditorView } from "./view/editorview";
 import { ToolBar } from "./toolbar/toolbar";
 
+import './assets/style/toolbar.scss';
+
 export class seedEditor {
     // config
     containerConfig: EditorContainerConfig;
@@ -39,12 +41,12 @@ export class seedEditor {
      * @param selector 根结点选择器id
      */
     init () {
-        this.domInit();
+        this.frameDomInit();
         this.toolBarInit();
-        this.editPage();
+        this.editPageInit();
     }
 
-    domInit() {
+    frameDomInit() {
         this.rootNode = document.getElementById(this.selectorId);
         this.editorContainer = document.createElement('div');
         this.rootNode.appendChild(this.editorContainer);
@@ -60,7 +62,7 @@ export class seedEditor {
         this.sToolBarView = new ToolBar(this.toolBarDiv, this.toolbarConfig);
     }
 
-    editPage() {
+    editPageInit() {
         this.editorDiv = document.createElement('div');
         this.editorContainer.appendChild(this.editorDiv);
         this.sEditorView = new SeedEditorView(this.editorDiv, this.pageConfig);

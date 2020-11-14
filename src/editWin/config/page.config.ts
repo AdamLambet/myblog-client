@@ -13,7 +13,7 @@ export interface PageSizeConfig {
 }
 
 export const DefaultPageSize: PageSizeConfig = {
-    height: 400
+    height: 350
 }
 
 // toolbar config
@@ -22,5 +22,5 @@ export interface ToolBarConfig {
 }
 
 export const DefaultToolBarConfig: ToolBarConfig = {
-    height: 50
+    height: 40
 }

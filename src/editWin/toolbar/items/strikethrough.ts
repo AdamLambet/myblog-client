@@ -1,7 +1,7 @@
 import { ToolBarItem } from "./type";
 
-export class Bold implements ToolBarItem {
-    className: string =  'bold';
+export class Strikethrough implements ToolBarItem {
+    className: string =  'strikethrough';
 
     getclassName(): string {
         return this.className;

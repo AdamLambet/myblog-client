@@ -1,10 +1,10 @@
 import { DefaultToolBarConfig, ToolBarConfig } from "../config/page.config";
-import { ToolBarItem } from "./items/type";
+import { TitemList } from "./items/itemsList";
+import { tItemsConfig } from "./items/type";
 
 export class ToolBar {
     tElement: HTMLDivElement;
     aToolBarStyle: ToolBarConfig;
-    items: ToolBarItem[];
 
     constructor(tElement: HTMLDivElement, toolbarConfig: ToolBarConfig) {
         this.tElement = tElement;
@@ -21,5 +21,9 @@ export class ToolBar {
         this.tElement.style.borderBottom = '1px solid #eeeeee';
     }
 
-    toolBarItemInit() {}
+    toolBarItemInit() {
+        const tItemConfig = Object.assign(tItemsConfig, {}); // customitem todo
+        const tList = new TitemList(tItemConfig);
+        this.tElement.appendChild(tList.getitemListNode());
+    }
 }

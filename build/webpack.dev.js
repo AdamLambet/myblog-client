@@ -15,5 +15,5 @@ const commonConfig = require('./webpack.config');
          open: true,
          hot: true
      },
-     devtool: 'source-map'
+     devtool: 'eval-source-map'
  })
