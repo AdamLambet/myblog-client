@@ -1,4 +1,4 @@
-import { PageSizeConfig, DefaultPageSize } from "../config/page.config";
+import { PageSizeConfig, DefaultPageSize } from "../../config/page.config";
 
 export class SeedEditorView {
 

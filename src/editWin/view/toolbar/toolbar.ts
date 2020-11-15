@@ -1,4 +1,4 @@
-import { DefaultToolBarConfig, ToolBarConfig } from "../config/page.config";
+import { DefaultToolBarConfig, ToolBarConfig } from "../../config/page.config";
 import { TitemList } from "./items/itemsList";
 import { tItemsConfig } from "./items/type";
 

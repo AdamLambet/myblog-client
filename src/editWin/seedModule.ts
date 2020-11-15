@@ -1,8 +1,11 @@
 import { DefaultContainerConfig, EditorContainerConfig, PageSizeConfig, ToolBarConfig } from "./config/page.config";
-import { SeedEditorView } from "./view/editorview";
-import { ToolBar } from "./toolbar/toolbar";
+import { SeedEditorView } from "./view/editview/editorview";
 
 import './assets/style/toolbar.scss';
+import { ProxyInputArea } from "./view/proxyinput/proxyInput";
+import { InputManager } from "./controller/InputManager";
+import { seedImp } from "./utils/seedimp";
+import { ToolBar } from "./view/toolbar/toolbar";
 
 export class seedEditor {
     // config
@@ -16,14 +19,22 @@ export class seedEditor {
     selectorId: string;
     toolBarDiv: HTMLDivElement;
     editorDiv: HTMLDivElement;
+    proxyInputDiv: HTMLTextAreaElement;
+
+    // event-implement-util
+    seedimp: seedImp
 
     // view
     sEditorView: SeedEditorView;
     sToolBarView: ToolBar;
+    sProxyInput: ProxyInputArea;
+
+    // controller
+    sInputManager: InputManager;
+
+    // model
 
     constructor(selector: string, containerConfig: EditorContainerConfig = {},  toolbarConfig: ToolBarConfig = {}, pageConfig: PageSizeConfig = {}) {
-        this.checkBrowserEnv()
-
         this.selectorId = selector;
 
         this.containerConfig = Object.assign(DefaultContainerConfig, containerConfig);
@@ -32,39 +43,34 @@ export class seedEditor {
     }
 
     /**
-     * 查看当前浏览器运行环境
+     * lifecicle
+     * beforeinit -> inited -> beforeDestory -> destoryed
      */
-    checkBrowserEnv() {}
+    beforeinit() {
+        this.seedimp = new seedImp(this);
+        this.seedimp.checkBrowserEnv();
+    }
+
+    inited() {
+        this.sInputManager = new InputManager(this.editorDiv);
+        this.seedimp.grabFocus();
+    }
+
+    beforeDestory() {}
+
+    destoryed() {}
+
 
     /**
      * 初始化dom和配置
      * @param selector 根结点选择器id
      */
     init () {
-        this.frameDomInit();
-        this.toolBarInit();
-        this.editPageInit();
-    }
-
-    frameDomInit() {
-        this.rootNode = document.getElementById(this.selectorId);
-        this.editorContainer = document.createElement('div');
-        this.rootNode.appendChild(this.editorContainer);
-        this.editorContainer.style.boxShadow = '0 8px 40px rgba(0, 0, 0, 0.15)';
-        this.editorContainer.style.border = '1px solid #c9d8db';
-        this.editorContainer.style.margin = '0 auto';
-        this.editorContainer.style.width = `${this.containerConfig.width}px`;
-    }
-
-    toolBarInit() {
-        this.toolBarDiv = document.createElement('div');
-        this.editorContainer.appendChild(this.toolBarDiv);
-        this.sToolBarView = new ToolBar(this.toolBarDiv, this.toolbarConfig);
-    }
-
-    editPageInit() {
-        this.editorDiv = document.createElement('div');
-        this.editorContainer.appendChild(this.editorDiv);
-        this.sEditorView = new SeedEditorView(this.editorDiv, this.pageConfig);
+        this.beforeinit();
+        this.seedimp.frameDomInit();
+        this.seedimp.toolBarInit();
+        this.seedimp.editPageInit();
+        // this.seedimp.proxyInputInit();
+        this.inited();
     }
 }
