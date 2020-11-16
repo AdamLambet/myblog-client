@@ -22,7 +22,7 @@ export class seedEditor {
     proxyInputDiv: HTMLTextAreaElement;
 
     // event-implement-util
-    seedimp: seedImp
+    seedimp: seedImp;
 
     // view
     sEditorView: SeedEditorView;
@@ -43,7 +43,7 @@ export class seedEditor {
     }
 
     /**
-     * lifecicle
+     * lifecycle
      * beforeinit -> inited -> beforeDestory -> destoryed
      */
     beforeinit() {
@@ -52,7 +52,11 @@ export class seedEditor {
     }
 
     inited() {
+        // controller instances
         this.sInputManager = new InputManager(this.editorDiv);
+
+        // model instances
+
         this.seedimp.grabFocus();
     }
 
