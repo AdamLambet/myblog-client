@@ -1,3 +1,4 @@
+import { EditModel } from "../model/editModel/text/editModel";
 import { seedEditor } from "../seedModule";
 import { SeedEditorView } from "../view/editview/editorview";
 import { ProxyInputArea } from "../view/proxyinput/proxyInput";
@@ -40,6 +41,10 @@ export class seedImp {
         this.sEditor.proxyInputDiv = document.createElement('textarea');
         this.sEditor.editorContainer.appendChild(this.sEditor.proxyInputDiv);
         this.sEditor.sProxyInput = new ProxyInputArea(this.sEditor.proxyInputDiv);
+    }
+
+    editModelInit() {
+        this.sEditor.sEditModel = new EditModel();
     }
 
     grabFocus() {

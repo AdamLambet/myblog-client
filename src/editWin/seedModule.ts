@@ -6,6 +6,7 @@ import { ProxyInputArea } from "./view/proxyinput/proxyInput";
 import { InputManager } from "./controller/InputManager";
 import { seedImp } from "./utils/seedimp";
 import { ToolBar } from "./view/toolbar/toolbar";
+import { EditModel } from "./model/editModel/text/editModel";
 
 export class seedEditor {
     // config
@@ -33,6 +34,7 @@ export class seedEditor {
     sInputManager: InputManager;
 
     // model
+    sEditModel: EditModel;
 
     constructor(selector: string, containerConfig: EditorContainerConfig = {},  toolbarConfig: ToolBarConfig = {}, pageConfig: PageSizeConfig = {}) {
         this.selectorId = selector;
@@ -75,6 +77,7 @@ export class seedEditor {
         this.seedimp.toolBarInit();
         this.seedimp.editPageInit();
         // this.seedimp.proxyInputInit();
+        this.seedimp.editModelInit();
         this.inited();
     }
 }
