@@ -1,8 +1,11 @@
+import { InputManager } from "../controller/InputManager";
 import { EditModel } from "../model/editModel/text/editModel";
 import { seedEditor } from "../seedModule";
 import { SeedEditorView } from "../view/editview/editorview";
+import { RenderEngine } from "../view/editview/renderEngine";
 import { ProxyInputArea } from "../view/proxyinput/proxyInput";
 import { ToolBar } from "../view/toolbar/toolbar";
+import { EventBus } from "./eventBus";
 
 export class seedImp {
     sEditor: seedEditor
@@ -43,8 +46,20 @@ export class seedImp {
         this.sEditor.sProxyInput = new ProxyInputArea(this.sEditor.proxyInputDiv);
     }
 
+    inputManagerInit() {
+        this.sEditor.sInputManager = new InputManager(this.sEditor.editorDiv);
+    }
+
     editModelInit() {
         this.sEditor.sEditModel = new EditModel();
+    }
+
+    eventBusInit() {
+        this.sEditor.sEventBus = new EventBus();
+    }
+
+    renderEngineInit() {
+        this.sEditor.sRenderEngine = new RenderEngine();
     }
 
     grabFocus() {

@@ -7,6 +7,8 @@ import { InputManager } from "./controller/InputManager";
 import { seedImp } from "./utils/seedimp";
 import { ToolBar } from "./view/toolbar/toolbar";
 import { EditModel } from "./model/editModel/text/editModel";
+import { EventBus } from "./utils/eventBus";
+import { RenderEngine } from "./view/editview/renderEngine";
 
 export class seedEditor {
     // config
@@ -30,11 +32,16 @@ export class seedEditor {
     sToolBarView: ToolBar;
     sProxyInput: ProxyInputArea;
 
+    sRenderEngine: RenderEngine;
+
     // controller
     sInputManager: InputManager;
 
     // model
     sEditModel: EditModel;
+
+    // eventbus
+    sEventBus: EventBus;
 
     constructor(selector: string, containerConfig: EditorContainerConfig = {},  toolbarConfig: ToolBarConfig = {}, pageConfig: PageSizeConfig = {}) {
         this.selectorId = selector;
@@ -42,6 +49,8 @@ export class seedEditor {
         this.containerConfig = Object.assign(DefaultContainerConfig, containerConfig);
         this.toolbarConfig = toolbarConfig;
         this.pageConfig = pageConfig;
+
+        (Window as any).seedEt = this;
     }
 
     /**
@@ -55,9 +64,16 @@ export class seedEditor {
 
     inited() {
         // controller instances
-        this.sInputManager = new InputManager(this.editorDiv);
+        this.seedimp.inputManagerInit();
+
+        // event bus instance
+        this.seedimp.eventBusInit();
+
+        // view manager instance
+        this.seedimp.renderEngineInit();
 
         // model instances
+        this.seedimp.editModelInit();
 
         this.seedimp.grabFocus();
     }
@@ -77,7 +93,8 @@ export class seedEditor {
         this.seedimp.toolBarInit();
         this.seedimp.editPageInit();
         // this.seedimp.proxyInputInit();
-        this.seedimp.editModelInit();
         this.inited();
     }
 }
+
+export const seeEdt = () => { return (Window as any).seedEt; }

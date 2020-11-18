@@ -4,7 +4,7 @@ import { ContentAttrs } from "./attribute";
  * 段落中内容描速类
  */
 export class ContentNode {
-    sTextString: string;
+    sTextString: string = '';
 	sAttrs: ContentAttrs[];
 
     constructor(sTextString: string = '', sAttrs: ContentAttrs[] = []) {
