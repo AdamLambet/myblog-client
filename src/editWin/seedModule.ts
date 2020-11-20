@@ -43,7 +43,11 @@ export class seedEditor {
     // eventbus
     sEventBus: EventBus;
 
-    constructor(selector: string, containerConfig: EditorContainerConfig = {},  toolbarConfig: ToolBarConfig = {}, pageConfig: PageSizeConfig = {}) {
+    constructor(selector: string,
+                containerConfig: EditorContainerConfig = {},
+                toolbarConfig: ToolBarConfig = {},
+                pageConfig: PageSizeConfig = {}) 
+        {
         this.selectorId = selector;
 
         this.containerConfig = Object.assign(DefaultContainerConfig, containerConfig);

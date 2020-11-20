@@ -15,4 +15,8 @@ export class ParagraphNode {
         if (contentNode) {}  // todo
         this.sContentNodes = [new ContentNode()];
     }
+
+    getContentNodes(): ContentNode[] {
+        return this.sContentNodes;
+    }
 }

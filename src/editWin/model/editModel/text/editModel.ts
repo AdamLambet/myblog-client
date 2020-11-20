@@ -1,4 +1,5 @@
 import { seedEditor, seeEdt } from "../../../seedModule";
+import { eventNotifyType } from "../../../utils/constant";
 import { EventBus } from "../../../utils/eventBus";
 import { SelectionManager } from "../selection/selManager";
 import { ParagraphNode } from "./paragraph";
@@ -18,11 +19,44 @@ export class EditModel {
     initEditModel(initDom: string) {
         if (initDom) {} // todo
         this.sParas = [new ParagraphNode()];
-        this.renderDispatch();
+        this.registerEvent();
+        this.dispatchRender();
+    }
+    
+    registerEvent() {
+        const eventBus: EventBus = this.sEditor.sEventBus;
+        if (!eventBus.hasEvent(eventNotifyType.input)) {
+            eventBus.registerEvent(eventNotifyType.input, this);
+        }
+
+        if (!eventBus.hasEvent(eventNotifyType.delete)) {
+            eventBus.registerEvent(eventNotifyType.delete, this);
+        }
     }
 
-    renderDispatch() {
+    notify(eventType: eventNotifyType, args?: any) {
+        switch(eventType) {
+            case eventNotifyType.input:
+                const data = args.data;
+                console.log(data);
+                break;
+            case eventNotifyType.delete:
+                break;
+            default:
+                break;
+        }
+    }
+
+    dispatchRender() {
         const eventBus: EventBus = this.sEditor.sEventBus;
-        eventBus.dispatchEvent('render');
+        eventBus.dispatchEvent(eventNotifyType.render);
+    }
+
+    getParas(): ParagraphNode[] {
+        return this.sParas;
+    }
+
+    getSelection(): SelectionManager {
+        return this.sSelection;
     }
 }

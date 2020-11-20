@@ -16,9 +16,13 @@ export class SeedEditorView {
         this.eElement.id = `sEditor${uuid}`;
         this.eElement.setAttribute('contenteditable', 'true');
         this.eElement.style.outline = 'none';
-        this.eElement.style.padding = '22px 15px 40px';
+        this.eElement.style.padding = '1px 15px 40px';
         this.eElement.style.boxSizing = 'border-box';
         this.eElement.style.height = `${ this.pOutlineStyle.height}px`;
         this.eElement.style.width = `100%`;
+    }
+
+    getViewElement(): HTMLDivElement {
+        return this.eElement;
     }
 }
