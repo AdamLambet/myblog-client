@@ -1,3 +1,4 @@
+import { ContentAttrs } from "../../model/editModel/text/attribute";
 import { ContentNode } from "../../model/editModel/text/content";
 import { EditModel } from "../../model/editModel/text/editModel";
 import { ParagraphNode } from "../../model/editModel/text/paragraph";
@@ -13,6 +14,8 @@ export const DomFragmentTag = {
     PARASTART: '<p>',
     PARAEND: '</p>',
     LINEBREAK: '<br>',
+    TEXTSTART: '<text>',
+    TEXTEND: '</text>',
 }
 
 /**
@@ -49,9 +52,19 @@ export class RenderEngine {
             domStr += DomFragmentTag.PARASTART;
             for (let j = 0; j < contenNodeList.length; j = j + 1) {
                 const contentNode: ContentNode = contenNodeList[j];
+                const text: string = contentNode.getText();
+                if (!text) { // 无内容直接跳出
+                    continue;
+                }
+                const attrs: ContentAttrs = contentNode.getAttrs();
+                if (!attrs) {  // 纯文本节点
+                    paraDomStr += `${DomFragmentTag.TEXTSTART}${text}${DomFragmentTag.TEXTEND}`;
+                }
             }
             if (!paraDomStr) { 
                 domStr += DomFragmentTag.LINEBREAK;  // 段落占位
+            } else {
+                domStr += paraDomStr;
             }
             domStr += DomFragmentTag.PARAEND;
         }

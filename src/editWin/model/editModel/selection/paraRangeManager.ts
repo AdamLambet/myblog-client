@@ -6,4 +6,17 @@ import { ParagraphNode } from "../text/paragraph";
 export class ParaRangeManager {
     sParaNode: ParagraphNode;
     sOffset: number;
+
+    constructor(sPara: ParagraphNode, sOffset: number) {
+        this.sParaNode = sPara;
+        this.sOffset = sOffset;
+    }
+
+    getParaNode() {
+        return this.sParaNode;
+    }
+
+    getOffset() {
+        return this.sOffset;
+    }
 }

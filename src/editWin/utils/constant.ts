@@ -4,3 +4,11 @@ export enum eventNotifyType {
     input,
     delete,
 }
+
+// keyboardEvent.key
+export const keyCode = {
+    ArrowUp: 'ArrowUp',
+    ArrowDown: 'ArrowDown',
+    ArrowLeft: 'ArrowLeft',
+    ArrowRight: 'ArrowRight',
+}
