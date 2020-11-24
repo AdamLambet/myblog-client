@@ -26,7 +26,7 @@ export class EditModel {
     }
     
     registerEvent() {
-        const eventBus: EventBus = this.sEditor.sEventBus;
+        const eventBus: EventBus = this.sEditor.imp().getEventBus();
         if (!eventBus.hasEvent(eventNotifyType.input)) {
             eventBus.registerEvent(eventNotifyType.input, this);
         }
@@ -37,7 +37,7 @@ export class EditModel {
     }
 
     dispatchRender() {
-        const eventBus: EventBus = this.sEditor.sEventBus;
+        const eventBus: EventBus = this.sEditor.imp().getEventBus();
         eventBus.dispatchEvent(eventNotifyType.render);
     }
 

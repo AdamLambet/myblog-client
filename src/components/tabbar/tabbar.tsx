@@ -28,18 +28,18 @@ export class TabBar extends React.Component<any> {
                 <li>
                     <HomeTwoTone style={iconStyleConfig} />
                 </li>
-                <li>
+                {/* <li>
                     <IdcardTwoTone style={iconStyleConfig} />
                 </li>
                 <li>
                     <FolderTwoTone style={iconStyleConfig} />
-                </li>
+                </li> */}
                 <li>
                     <EditTwoTone style={iconStyleConfig} />
                 </li>
-                <li>
+                {/* <li>
                     <MailTwoTone style={iconStyleConfig} />
-                </li>
+                </li> */}
             </ul>
         )
     }

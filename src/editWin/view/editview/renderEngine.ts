@@ -1,3 +1,4 @@
+import { CacheManager } from "../../model/cache/cacheManager";
 import { ContentAttrs } from "../../model/editModel/text/attribute";
 import { ContentNode } from "../../model/editModel/text/content";
 import { EditModel } from "../../model/editModel/text/editModel";
@@ -10,12 +11,10 @@ import { SeedEditorView } from "./editorview";
 /**
  * dom片段tag
  */
-export const DomFragmentTag = {
-    PARASTART: '<p>',
-    PARAEND: '</p>',
-    LINEBREAK: '<br>',
-    TEXTSTART: '<text>',
-    TEXTEND: '</text>',
+export const DomElements = {
+    PARA: 'P',
+    LINEBREAK: 'br',
+    TEXT: 'text',
 }
 
 /**
@@ -29,7 +28,7 @@ export class RenderEngine {
     }
 
     registerEvent() {
-        const eventBus: EventBus = this.sEditor.sEventBus;
+        const eventBus: EventBus = this.sEditor.imp().getEventBus();
         eventBus.registerEvent(eventNotifyType.render, this);
     }
 
@@ -42,14 +41,13 @@ export class RenderEngine {
     }
 
     render() {
-        const editModel: EditModel = this.sEditor.sEditModel;
+        this.sEditor.imp().getCacheMr().htmlParaNodeMap = new Map(); // todo
+        const editModel: EditModel = this.sEditor.imp().getEditModel();
         const paraNodeList: ParagraphNode[] = editModel.getParas();
-        let domStr: string = '';
         for (let i = 0; i < paraNodeList.length; i = i + 1) {
             const paraNode: ParagraphNode = paraNodeList[i];
             const contenNodeList: ContentNode[] = paraNode.getContentNodes();
-            let paraDomStr: string = '';
-            domStr += DomFragmentTag.PARASTART;
+            const ParaElement: HTMLElement = this.getElement(DomElements.PARA);
             for (let j = 0; j < contenNodeList.length; j = j + 1) {
                 const contentNode: ContentNode = contenNodeList[j];
                 const text: string = contentNode.getText();
@@ -58,24 +56,37 @@ export class RenderEngine {
                 }
                 const attrs: ContentAttrs = contentNode.getAttrs();
                 if (!attrs) {  // 纯文本节点
-                    paraDomStr += `${DomFragmentTag.TEXTSTART}${text}${DomFragmentTag.TEXTEND}`;
+                    const textElement: HTMLElement = this.getElement(DomElements.TEXT);
+                    textElement.textContent = text;
+                    ParaElement.appendChild(textElement);
                 }
             }
-            if (!paraDomStr) { 
-                domStr += DomFragmentTag.LINEBREAK;  // 段落占位
-            } else {
-                domStr += paraDomStr;
+            if (!ParaElement.childNodes || ParaElement.childNodes.length === 0) {
+                const brElement: HTMLElement = this.getElement(DomElements.LINEBREAK);
+                ParaElement.appendChild(brElement);  // 段落占位
             }
-            domStr += DomFragmentTag.PARAEND;
+            this.storeEleToCache(ParaElement, paraNode);
+            this.applyToView(ParaElement as HTMLParagraphElement);
         }
-        console.log(domStr);
-        this.applyToView(domStr);
     }
 
-    applyToView(domStr: string) {
-        const editview: SeedEditorView = this.sEditor.sEditorView;
+    getElement(el: string) {
+        return document.createElement(el);
+    }
+
+
+    storeEleToCache(ele: HTMLElement, paraNode: ParagraphNode) {
+        const cacheMr: CacheManager = this.sEditor.imp().getCacheMr();
+        if (cacheMr.hasParaNodeFromHtmlEle(ele)) {
+            cacheMr.delParaNodeFromHtmlEle(ele);
+        }
+        cacheMr.setParaNodeFromHtmlEle(ele, paraNode);
+    }
+
+    applyToView(ParaEle: HTMLParagraphElement) {
+        const editview: SeedEditorView = this.sEditor.imp().getEditView();
         const editViewEle: HTMLDivElement = editview.getViewElement();
         editViewEle.innerHTML = '';
-        editViewEle.innerHTML = domStr;
+        editViewEle.appendChild(ParaEle);
     }
 }

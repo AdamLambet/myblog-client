@@ -9,6 +9,7 @@ import { ToolBar } from "./view/toolbar/toolbar";
 import { EditModel } from "./model/editModel/text/editModel";
 import { EventBus } from "./utils/eventBus";
 import { RenderEngine } from "./view/editview/renderEngine";
+import { CacheManager } from "./model/cache/cacheManager";
 
 export class seedEditor {
     // config
@@ -42,6 +43,7 @@ export class seedEditor {
 
     // eventbus
     sEventBus: EventBus;
+    sCacheManager: CacheManager;
 
     constructor(selector: string,
                 containerConfig: EditorContainerConfig = {},
@@ -73,6 +75,9 @@ export class seedEditor {
         // event bus instance
         this.seedimp.eventBusInit();
 
+        // cache instance
+        this.seedimp.cacheManagerInit();
+
         // view manager instance
         this.seedimp.renderEngineInit();
 
@@ -99,6 +104,16 @@ export class seedEditor {
         // this.seedimp.proxyInputInit();
         this.inited();
     }
+
+
+
+    /**
+     * getImp -> fucntion 提供外部调用
+     */
+
+    imp() {
+         return this.seedimp;
+     }
 }
 
 export const seeEdt = () => { return (Window as any).seedEt; }

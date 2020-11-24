@@ -29,6 +29,10 @@ export class SelectionManager {
     }
 
     syncSelection() { // 同步当前编辑器selection信息 转化成model
-
+        const sel: Selection = window.getSelection();
+        const range: Range = sel.getRangeAt(0);
+        const starContainer: Node = range.startContainer;
+        const endContainer: Node = range.endContainer;
+        console.log(starContainer, endContainer)
     }
 }

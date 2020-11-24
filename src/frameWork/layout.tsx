@@ -11,13 +11,13 @@ export class LayoutManager extends React.Component<any, any> {
            <div className="layout-container">
                <LayoutBackground />
                 <Row className="layout-row">
-                    <Col flex="240px">
+                    {/* <Col flex="240px">
                        <SlideBar />
-                    </Col>
+                    </Col> */}
                     <Col flex="auto">
                         <div className="main-content"></div>
                     </Col>
-                    <Col flex="80px">
+                    <Col flex="60px">
                         <TabBar />
                     </Col>
                 </Row>

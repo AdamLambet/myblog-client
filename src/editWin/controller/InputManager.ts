@@ -77,7 +77,7 @@ import { EventBus } from "../utils/eventBus";
       keyDownHandler(event: KeyboardEvent) {
           const keyCode: string = event.code;
           const keyValue: string = event.key;
-          const eventBus: EventBus = this.sEditor.sEventBus;
+          const eventBus: EventBus = this.sEditor.imp().getEventBus();
           if (!isDirectionCode(keyCode)) { // 除了上下左右按键用开调整光标位置 其他情况都会阻止默认行为
             event.preventDefault();
             event.stopPropagation();

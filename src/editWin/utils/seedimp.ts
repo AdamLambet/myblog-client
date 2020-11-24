@@ -1,4 +1,5 @@
 import { InputManager } from "../controller/InputManager";
+import { CacheManager } from "../model/cache/cacheManager";
 import { EditModel } from "../model/editModel/text/editModel";
 import { seedEditor } from "../seedModule";
 import { SeedEditorView } from "../view/editview/editorview";
@@ -8,7 +9,7 @@ import { ToolBar } from "../view/toolbar/toolbar";
 import { EventBus } from "./eventBus";
 
 export class seedImp {
-    sEditor: seedEditor
+    sEditor: seedEditor;
     constructor(sEditor: seedEditor) {
         this.sEditor = sEditor;
     }
@@ -54,8 +55,28 @@ export class seedImp {
         this.sEditor.sEditModel = new EditModel();
     }
 
+    getEditModel() {
+        return this.sEditor.sEditModel;
+    }
+
+    getEditView() {
+        return this.sEditor.sEditorView;
+    }
+
     eventBusInit() {
         this.sEditor.sEventBus = new EventBus();
+    }
+
+    getEventBus() {
+        return this.sEditor.sEventBus;
+    }
+
+    cacheManagerInit() {
+        this.sEditor.sCacheManager = new CacheManager();
+    }
+
+    getCacheMr() {
+        return this.sEditor.sCacheManager;
     }
 
     renderEngineInit() {
