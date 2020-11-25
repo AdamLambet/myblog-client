@@ -4,9 +4,8 @@ import { ParagraphNode } from "../editModel/text/paragraph";
  * 全局缓存数据管理 htmlfrag html-model-map
  */
 export class CacheManager {
-    htmlParaNodeMap: WeakMap<HTMLElement, ParagraphNode> = new Map();
-
-    getParaNodeFromHtmlEle(ele: HTMLElement) {
+    htmlParaNodeMap: WeakMap<Node, ParagraphNode> = new Map();
+    getParaNodeFromHtmlEle(ele: HTMLElement | Node) {
         return this.htmlParaNodeMap.get(ele);
     }
 

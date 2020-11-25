@@ -1,3 +1,4 @@
+import { ContentNode } from "../text/content";
 import { ParagraphNode } from "../text/paragraph";
 
 /**
@@ -5,6 +6,7 @@ import { ParagraphNode } from "../text/paragraph";
  */
 export class ParaRangeManager {
     sParaNode: ParagraphNode;
+    sContent: ContentNode;
     sOffset: number;
 
     constructor(sPara: ParagraphNode, sOffset: number) {
@@ -14,6 +16,10 @@ export class ParaRangeManager {
 
     getParaNode() {
         return this.sParaNode;
+    }
+
+    getContentNode() {
+        return this.sContent;
     }
 
     getOffset() {

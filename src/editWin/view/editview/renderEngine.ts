@@ -4,18 +4,9 @@ import { ContentNode } from "../../model/editModel/text/content";
 import { EditModel } from "../../model/editModel/text/editModel";
 import { ParagraphNode } from "../../model/editModel/text/paragraph";
 import { seedEditor, seeEdt } from "../../seedModule";
-import { eventNotifyType } from "../../utils/constant";
+import { eventNotifyType, NodeNames } from "../../utils/constant";
 import { EventBus } from "../../utils/eventBus";
 import { SeedEditorView } from "./editorview";
-
-/**
- * dom片段tag
- */
-export const DomElements = {
-    PARA: 'P',
-    LINEBREAK: 'br',
-    TEXT: 'text',
-}
 
 /**
  * 将editmodel中的数据转成Dom渲染
@@ -47,7 +38,7 @@ export class RenderEngine {
         for (let i = 0; i < paraNodeList.length; i = i + 1) {
             const paraNode: ParagraphNode = paraNodeList[i];
             const contenNodeList: ContentNode[] = paraNode.getContentNodes();
-            const ParaElement: HTMLElement = this.getElement(DomElements.PARA);
+            const ParaElement: HTMLElement = this.getElement(NodeNames.PARA);
             for (let j = 0; j < contenNodeList.length; j = j + 1) {
                 const contentNode: ContentNode = contenNodeList[j];
                 const text: string = contentNode.getText();
@@ -56,13 +47,13 @@ export class RenderEngine {
                 }
                 const attrs: ContentAttrs = contentNode.getAttrs();
                 if (!attrs) {  // 纯文本节点
-                    const textElement: HTMLElement = this.getElement(DomElements.TEXT);
+                    const textElement: HTMLElement = this.getElement(NodeNames.TEXT);
                     textElement.textContent = text;
                     ParaElement.appendChild(textElement);
                 }
             }
             if (!ParaElement.childNodes || ParaElement.childNodes.length === 0) {
-                const brElement: HTMLElement = this.getElement(DomElements.LINEBREAK);
+                const brElement: HTMLElement = this.getElement(NodeNames.LINEBREAK);
                 ParaElement.appendChild(brElement);  // 段落占位
             }
             this.storeEleToCache(ParaElement, paraNode);

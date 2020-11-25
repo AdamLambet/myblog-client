@@ -1,3 +1,7 @@
+import { seedEditor, seeEdt } from "../../../seedModule";
+import { NodeNames } from "../../../utils/constant";
+import { CacheManager } from "../../cache/cacheManager";
+import { ContentNode } from "../text/content";
 import { ParagraphNode } from "../text/paragraph";
 import { ParaRangeManager } from "./paraRangeManager";
 
@@ -5,6 +9,7 @@ import { ParaRangeManager } from "./paraRangeManager";
  * 描速当前range 在model段落中的位置信息
  */
 export class SelectionManager {
+    sEditor: seedEditor = seeEdt();
     sStartRange: ParaRangeManager;
     sEndRange: ParaRangeManager;
     constructor(sPara: ParagraphNode, sOffset: number, ePara: ParagraphNode, eOffset: number) {
@@ -33,6 +38,39 @@ export class SelectionManager {
         const range: Range = sel.getRangeAt(0);
         const starContainer: Node = range.startContainer;
         const endContainer: Node = range.endContainer;
-        console.log(starContainer, endContainer)
+        const startOffset: number = range.startOffset;
+        const endOffset: number = range.endOffset;
+        const isCollaps: boolean = range.collapsed;
+
+        // startSelection
+        
+
+        // endselection
+    }
+
+    /**
+     * 根据当前选取所在节点 找出所在段落
+     * @param pNode 
+     */
+    findParagraph(pNode: Node): Node {
+        if (pNode.nodeName === NodeNames.PARA) {
+            return pNode;
+        } else {
+            return this.findParagraph(pNode.parentNode);
+        }
+    }
+
+    /**
+     * 根据当前htmlelement获取对应model
+     * @param pNode 
+     */
+    getParagraphNode(pNode: Node): ParagraphNode {
+        const cacheMr: CacheManager = this.sEditor.imp().getCacheMr();
+        const paraNode: ParagraphNode = cacheMr.getParaNodeFromHtmlEle(pNode);
+        return paraNode;
+    }
+
+    getSelectionOffset(pNode: ParagraphNode, cNode: Node, sOffset: number) {
+        const contents: ContentNode[] = pNode.getContentNodes();
     }
 }

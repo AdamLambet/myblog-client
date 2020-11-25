@@ -72,8 +72,9 @@ export class EditModel {
         if (typeof(data) === 'string') { // 纯文本
             if (isCollaps) {
                 const paraNode: ParagraphNode = startRange.getParaNode();
+                const focusNode = startRange.getContentNode();
                 const offset: number = startRange.getOffset();
-                return paraNode.insertContentStr(data, offset);
+                return paraNode.insertContentStr(data, focusNode, offset);
             } else {}
         }
     }
