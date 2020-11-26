@@ -32,7 +32,8 @@ export class RenderEngine {
     }
 
     render() {
-        this.sEditor.imp().getCacheMr().htmlParaNodeMap = new Map(); // todo
+        this.sEditor.imp().getCacheMr().paraDomToNodeMap = new WeakMap(); // todo
+
         const editModel: EditModel = this.sEditor.imp().getEditModel();
         const paraNodeList: ParagraphNode[] = editModel.getParas();
         for (let i = 0; i < paraNodeList.length; i = i + 1) {

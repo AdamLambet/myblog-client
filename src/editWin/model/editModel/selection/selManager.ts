@@ -43,7 +43,8 @@ export class SelectionManager {
         const isCollaps: boolean = range.collapsed;
 
         // startSelection
-        
+        const sDomPara: Node = this.findParagraph(starContainer);
+        const sParaModelNode: ParagraphNode = this.getParagraphNode(sDomPara);
 
         // endselection
     }
@@ -70,7 +71,21 @@ export class SelectionManager {
         return paraNode;
     }
 
+    /**
+     * 确定当前光标是在段落下的哪个节点以及偏移量
+     * @param pNode 
+     * @param cNode 光标所在文本节点
+     * @param sOffset 光标偏移量
+     * @return { ContentNode, Offset}
+     */
     getSelectionOffset(pNode: ParagraphNode, cNode: Node, sOffset: number) {
         const contents: ContentNode[] = pNode.getContentNodes();
+        if(cNode.nodeName === NodeNames.PARA) { // 当前光标位置处于一个空段落中
+            return {
+                cNode,
+                sOffset
+            }
+        }
+        
     }
 }
