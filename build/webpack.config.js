@@ -7,7 +7,12 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, '../dist'), // 输出位置当前目录
-        filename: '[name].js'
+        filename: '[name].[contenthash].js'
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"] // 在执行import引入时，先通过ts后缀尝试，再通过js后缀尝试

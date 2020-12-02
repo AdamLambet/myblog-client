@@ -5,7 +5,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CompressionPlugin = require("compression-webpack-plugin")
+// const CompressionPlugin = require("compression-webpack-plugin")
 
 module.exports = merge(commonConfig, {
     mode: 'production',
