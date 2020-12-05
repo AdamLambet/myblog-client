@@ -5,7 +5,8 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CompressionPlugin = require("compression-webpack-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(commonConfig, {
     mode: 'production',
@@ -20,13 +21,17 @@ module.exports = merge(commonConfig, {
             template: path.resolve(__dirname, '../src/editWin/editIndex.html'),
             chunks: ['editor']
         }),
-        // new CompressionPlugin({
-        //     test: /\.js/,
-        //     filename: '[path].gz[query]',
-        //     algorithm: 'gzip',
-        //     threshold: 0,
-        //     minRatio: 0.8,
-        //     deleteOriginalAssets: true
-        // })
-    ]
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename: '[id].css'
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'server',
+            generateStatsFile: true,
+            statsOptions: { source: false }
+        })
+    ],
+    optimization: { // css 压缩
+
+    }
 })

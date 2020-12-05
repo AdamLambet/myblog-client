@@ -14,6 +14,5 @@ const commonConfig = require('./webpack.config');
          port: 8888,
          open: true,
          hot: true
-     },
-     devtool: 'eval-source-map'
+     }
  })
