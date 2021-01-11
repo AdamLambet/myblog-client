@@ -9,6 +9,7 @@
     "cross-env": "^7.0.2",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
+    "gitbook": "^2.6.9",
     "node-sass": "^5.0.0",
     "postcss-loader": "^4.1.0",
     "react": "^17.0.1",

@@ -10,21 +10,26 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = merge(commonConfig, {
     mode: 'production',
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(__dirname, '../index.html'),
-            chunks: ['blogbundle']
+            chunks: ['portalbundle']
         }),
         new HtmlWebpackPlugin({
             filename: 'edit.html',
             template: path.resolve(__dirname, '../src/editWin/editIndex.html'),
             chunks: ['editor']
         }),
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css'
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: '[name].css',
+        //     chunkFilename: '[id].css'
+        // }),
         new BundleAnalyzerPlugin({
             analyzerMode: 'server',
             generateStatsFile: true,

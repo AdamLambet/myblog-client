@@ -3,17 +3,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        blogbundle: path.resolve(__dirname, '../index.tsx'),
+        portalbundle: path.resolve(__dirname, '../index.tsx'),
         editor: path.resolve(__dirname, '../src/editWin/editorIndex.ts')
     },
     output: {
         path: path.resolve(__dirname, '../dist'), // 输出位置当前目录
-        filename: '[name].[contenthash].js'
-    },
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        }
+        filename: '[name].js'
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"] // 在执行import引入时，先通过ts后缀尝试，再通过js后缀尝试
@@ -28,12 +23,13 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: './'
-                        },
-                    }, 
+                    // { 提取独立css文件 会造成run dev报错 暂时注释
+                    //     loader: MiniCssExtractPlugin.loader,
+                    //     options: {
+                    //         publicPath: './'
+                    //     },
+                    // }, 
+                    'style-loader',
                     'css-loader',
                     'postcss-loader',
                     'sass-loader'
